@@ -1,66 +1,21 @@
-# Cordova Text-to-Speech Plugin
+# Ionic Framework Demo App
 
-## Platforms
+This is a demo app built with the Ionic Framework that you can preview in the browser or clone and run locally on an emulator or device.
 
-iOS 7+  
-Windows Phone 8  
-Android 4.0.3+ (API Level 15+)
+# View it now
 
-## Installation
+https://ionic-in-action.github.io/ionic-demo-resort-app/www/
 
-```sh
-cordova plugin add cordova-plugin-tts
-```
+# Run locally
 
-## Usage
+This assumes you already have an emulator setup for iOS or Android. Substitute `ios` for `android` below to use Android.
 
-```javascript
-// make sure your the code gets executed only after `deviceready`.
-document.addEventListener('deviceready', function () {
-    // basic usage
-    TTS
-        .speak('hello, world!', function () {
-            alert('success');
-        }, function (reason) {
-            alert(reason);
-        });
-    
-    // or with more options
-    TTS
-        .speak({
-            text: 'hello, world!',
-            locale: 'en-GB',
-            rate: 0.75
-        }, function () {
-            alert('success');
-        }, function (reason) {
-            alert(reason);
-        });
-}, false);
-```
+    npm install -g ionic cordova
+    git clone https://github.com/ionic-in-action/ionic-demo-resort-app.git
+    cd ionic-demo-resort-app
+    ionic platform add ios
+    ionic emulate ios
 
-**Tips:** `speak` an empty string to interrupt.
+# LICENSE
 
-## API Definitions
-
-The `onfulfilled` callback will be called when the speech finishes,
-and the `onrejected` callback (Windows Phone only) will be called when an error occurs.
-
-If the API is invoked when it's still speaking, the previous speaking will be canceled immediately,
-but the `onfulfilled` callback of the previous speaking will be called when it stops.
-
-```typescript
-declare module TTS {
-    interface IOptions {
-        /** text to speak */
-        text: string;
-        /** a string like 'en-US', 'zh-CN', etc */
-        locale?: string;
-        /** speed rate, 0 ~ 1 */
-        rate?: number;
-    }
-
-    function speak(options: IOptions, onfulfilled: () => void, onrejected: (reason) => void): void;
-    function speak(text: string, onfulfilled: () => void, onrejected: (reason) => void): void;
-}
-```
+Ionic is licensed under the MIT Open Source license. For more information, see the LICENSE file in this repository.

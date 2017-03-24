@@ -1,74 +1,60 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-                      "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
   <head>
-    <title>PhoneGap Events Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
 
-    <script type="text/javascript" charset="utf-8" src="phonegap.0.9.5.js"></script>
-    <script type="text/javascript" charset="utf-8" src="tts.js"></script>
-    <script type="text/javascript" charset="utf-8">
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
-    // Call onDeviceReady when PhoneGap is loaded.
-    //
-    // At this point, the document has loaded but phonegap.js has not.
-    // When PhoneGap is loaded and talking with the native device,
-    // it will call the event `deviceready`.
-    // 
-    function onLoad() {
-        document.addEventListener("deviceready", onDeviceReady, false);
-    }
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
 
-    // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
-    //
-    function onDeviceReady() {
-        window.plugins.tts.startup(startupWin, fail);
-    }
-    
-    function startupWin(result) {
-		// When result is equal to STARTED we are ready to play
-		if (result == TTS.STARTED) {
-			window.plugins.tts.getLanguage(win, fail);
-			window.plugins.tts.speak("The text to speech service is ready");
-            window.plugins.tts.isLanguageAvailable("en", function() {
-				addLang("en");
-			}, fail);
-            window.plugins.tts.isLanguageAvailable("fr", function() {
-                addLang("fr");
-            }, fail);
-		}
-    }
-	
-	function addLang(lang) {
-		var langs = document.getElementById('langs');
-		var anOption = document.createElement("OPTION") 
-		anOption.innerText = lang; 
-		anOption.Value = lang;
-        langs.options.add(anOption); 
-	}
-	
-	function changeLang() {
-		var yourSelect = document.getElementById('langs');
-        window.plugins.tts.setLanguage(yourSelect.options[yourSelect.selectedIndex].value, win, fail);
-	}
-	
-	function win(result) {
-		console.log(result);
-	}
-    
-    function fail(result) {
-        console.log("Error = " + result);
-    }
-    
-    function speak() {
-        window.plugins.tts.speak(document.getElementById('playMe').value);
-    }
-    </script>
+    <!-- firebase -->
+    <script src="lib/firebase/firebase.js"></script>
+    <script src="lib/angularfire/dist/angularfire.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="views/events/events.js"></script>
+    <script src="views/food/food.js"></script>
+    <script src="views/home/home.js"></script>
+    <script src="views/reservation/reservation.js"></script>
+    <script src="views/tour/tour.js"></script>
+    <script src="views/weather/weather.js"></script>
   </head>
-  <body onload="onLoad()">
-    <h2>TTS Example</h2>
-	<input id="playMe" type="text"/><br/>
-	<select id="langs" onchange="changeLang()"></select>
-    <a href="javascript:speak()">Speak</a><br/>
-	test
+  <body ng-app="App">
+
+    <ion-side-menus>
+      <ion-side-menu-content>
+        <ion-nav-bar class="bar-positive nav-title-slide-ios7">
+          <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+        </ion-nav-bar>
+        <ion-nav-view></ion-nav-view>
+      </ion-side-menu-content>
+
+      <ion-side-menu side="left">
+        <ion-header-bar class="bar-dark">
+          <h1 class="title">Sunshine Resort</h1>
+        </ion-header-bar>
+        <ion-content has-header="true">
+          <ion-list>
+            <ion-item href="#/" class="item-icon-left" menu-close><i class="icon ion-home"></i> Home</ion-item>
+            <ion-item href="#/reservation" class="item-icon-left" menu-close><i class="icon ion-folder"></i> Reservation</ion-item>
+            <ion-item href="tel:8005555555" class="item-icon-left" menu-close><i class="icon ion-ios7-telephone"></i> Call Concierge</ion-item>
+            <ion-item href="#/weather" class="item-icon-left" menu-close><i class="icon ion-ios7-partlysunny"></i> Weather</ion-item>
+            <ion-item href="#/events" class="item-icon-left" menu-close><i class="icon ion-calendar"></i> Events</ion-item>
+            <ion-item href="#/local/food" class="item-icon-left" menu-close> <i class="icon ion-location"></i> Local Places</ion-item>
+            <ion-item href="#/food" class="item-icon-left" menu-close> <i class="icon ion-fork"></i> Order Room Service</ion-item>
+            <ion-item href="#/about" class="item-icon-left" menu-close> <i class="icon ion-ios7-information"></i> About</ion-item>
+          </ion-list>
+        </ion-content>
+      </ion-side-menu>
+
+    </ion-side-menus>
   </body>
 </html>
