@@ -1,6 +1,22 @@
 angular.module('starter', ['ionic'])
  
 .controller('AppCtrl', function($scope) {
+ 
+document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+
+window.TTS.speak({
+text: 'Welcome to the app! Welcome to the app! Welcome to the app! Welcome to the app!',
+locale: 'en-GB',
+rate: 0.75
+}, function () {
+alert('success');
+}, function (reason) {
+alert(reason);
+
+});
+} 
+ 
   $scope.data = {
     speechText: ''
   };
